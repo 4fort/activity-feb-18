@@ -19,9 +19,21 @@ class StudentController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $request->validate([
+                'name' => 'required|min:2',
+                'email' => 'required|email',
+                'dob' => 'required|date'
+            ]);
+
+        $newStudent = new Student();
+        $newStudent->name = $request->name;
+        $newStudent->email = $request->email;
+        $newStudent->dob = $request->dob;
+        $newStudent->save();
+
+        return back()->with('success', "Student added successfully");
     }
 
     /**
