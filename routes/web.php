@@ -8,3 +8,4 @@ Route::get('/', function () {
 });
 
 Route::get('/students', [StudentController::class, 'index']);
+Route::post('/add-student', [StudentController::class, 'create'])->name('student.add-student');
