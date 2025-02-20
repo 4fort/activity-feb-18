@@ -12,8 +12,23 @@ class StudentController extends Controller
      */
     public function index()
     {
-        $students = Student::all();
-        return view('students.index', compact('students'));
+
+        $columns = [
+            ['key' => 'id', 'label' => 'ID'],
+            ['key' => 'name', 'label' => 'Name'],
+            ['key' => 'email', 'label' => 'Email'],
+            ['key' => 'dob', 'label' => 'Date of Birth'],
+        ];
+        $rows = Student::all()->map(function ($student) {
+            return [
+                'id' => $student->id,
+                'name' => $student->name,
+                'email' => $student->email,
+                'dob' => $student->dob,
+            ];
+        })->toArray();
+
+        return view('students.index', compact('columns', 'rows'));
     }
 
     /**
@@ -22,10 +37,10 @@ class StudentController extends Controller
     public function create(Request $request)
     {
         $request->validate([
-                'name' => 'required|min:2',
-                'email' => 'required|email',
-                'dob' => 'required|date'
-            ]);
+            'name' => 'required|min:2',
+            'email' => 'required|email',
+            'dob' => 'required|date'
+        ]);
 
         $newStudent = new Student();
         $newStudent->name = $request->name;

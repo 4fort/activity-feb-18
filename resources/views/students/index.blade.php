@@ -1,6 +1,4 @@
-@extends('layout')
-@section('title', 'Students')
-@section('main')
+<x-layouts.app title="Students">
     <div>
         {{-- @if ('success')
 
@@ -34,22 +32,10 @@
         </form>
 
         <p>This is the list of students.</p>
-        <table>
-            <thead>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Date of Birth</th>
-            </thead>
-            <tbody>
-                @foreach ($students as $student)
-                    <tr>
-                        <td>{{ $student->name }}</td>
-                        <td>{{ $student->email }}</td>
-                        <td>{{ $student->dob }}</td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
 
-@endsection
+        <div class="container mx-auto">
+            <x-table :columns="$columns" :rows="$rows" />
+        </div>
+
+    </div>
+</x-layouts.app>
