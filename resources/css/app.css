@@ -1,3 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+    .scroll-area {
+        @apply overflow-auto p-2; /* Adjust height as needed */
+    }
+
+    .scroll-area::-webkit-scrollbar {
+        @apply w-2 h-2; /* Scrollbar width */
+    }
+
+    .scroll-area::-webkit-scrollbar-thumb {
+        @apply bg-gray-500 rounded-full hover:bg-gray-700; /* Thumb */
+    }
+
+    .scroll-area::-webkit-scrollbar-track {
+        @apply bg-gray-200 rounded-full; /* Track */
+    }
+}
