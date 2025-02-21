@@ -21,8 +21,8 @@
                                         {{ $row[$column['key']] ?? '-' }}
                                     </td>
                                 @endforeach
-                                <td class="px-5 py-4 text-sm font-medium text-right whitespace-nowrap">
-                                    <a class="text-blue-600 hover:text-blue-700" href="#">Edit</a>
+                                <td class="px-5 py-4 whitespace-nowrap">
+                                    <x-icons.ellipsis class="size-5 ml-auto" />
                                 </td>
                             </tr>
                         @endforeach
