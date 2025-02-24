@@ -69,17 +69,15 @@ class StudentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        //
-    }
+    public function show(string $id) {}
 
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)
     {
-        //
+        $student = Student::find($id);
+        return view('students.edit', compact('student'));
     }
 
     /**
@@ -87,7 +85,25 @@ class StudentController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+
+        $validatedData = $request->validate([
+            'name' => 'required|min:2',
+            'email' => 'required|email',
+            'dob' => 'required|date'
+        ]);
+
+        try {
+            $student = Student::findOrFail($id);
+
+            $student->name = $validatedData['name'];
+            $student->email = $validatedData['email'];
+            $student->dob = $validatedData['dob'];
+
+            $student->save();
+            return view('students.index', compact('table', 'students'))->with('success', 'Student updated successfully!');
+        } catch (\Exception $e) {
+            return back()->with('error', 'Something went wrong! ' . $e->getMessage())->withInput();
+        }
     }
 
     /**
@@ -95,7 +111,13 @@ class StudentController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            $student = Student::findOrFail($id);
+            $student->delete();
+            return back()->with('success', 'Student deleted successfully!');
+        } catch (\Exception $e) {
+            return back()->with('error', 'Something went wrong! ' . $e->getMessage());
+        }
     }
 
     public function search(Request $request)

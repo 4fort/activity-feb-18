@@ -21,8 +21,24 @@
                                         {{ $row[$column['key']] ?? '-' }}
                                     </td>
                                 @endforeach
-                                <td class="px-5 py-4 whitespace-nowrap">
-                                    <x-icons.ellipsis class="size-5 ml-auto" />
+                                <td class="px-5 py-4 whitespace-nowrap flex justify-end gap-4">
+                                    {{-- <x-icons.ellipsis class="size-5 ml-auto" /> --}}
+                                    {{-- <x-popover /> --}}
+                                    <x-button color="blue"
+                                        onclick="window.location.href='{{ route('student.edit', $row['id']) }}'">
+                                        Edit
+                                    </x-button>
+
+                                    <form action="{{ route('student.destroy', $row['id']) }}" method="POST"
+                                        onsubmit="return confirm('Are you sure you want to delete this student?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <x-button color="red" type="submit">
+                                            Delete
+                                        </x-button>
+                                    </form>
+
+
                                 </td>
                             </tr>
                         @endforeach
