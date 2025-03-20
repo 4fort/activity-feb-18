@@ -10,5 +10,11 @@
             </x-button>
         @endif
     </form>
+
+    <form action="{{ route('logout') }}" method="POST">
+        @csrf
+        <x-button type="submit" variant="outline">Logout</x-button>
+    </form>
+
     <x-students.add-student-dialog />
 </header>
