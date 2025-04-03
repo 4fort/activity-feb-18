@@ -8,6 +8,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::prefix('api')->group(function () {
+    Route::get('/', function () {
+        return response()->json([
+            'message' => 'Welcome to the API',
+            'status' => 200
+        ]);
+    });
+
+    Route::get('/students', [StudentController::class, 'getAll'])->name('api.students.index');
+});
+
 Route::middleware('auth')->group(function () {
     Route::get('/students', [StudentController::class, 'index'])->name('student.index');
     Route::get('/students/{id}', [StudentController::class, 'edit'])->name('student.edit');

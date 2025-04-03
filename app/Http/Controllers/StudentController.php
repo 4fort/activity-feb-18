@@ -146,4 +146,11 @@ class StudentController extends Controller
 
         return view('students.index', compact('table', 'students'));
     }
+
+    public function getAll()
+    {
+        $students = Student::all();
+
+        return response()->json($students);
+    }
 }
